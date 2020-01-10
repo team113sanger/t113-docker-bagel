@@ -1,0 +1,18 @@
+notifications:
+  slack: wsi-t113:SRHSOd3CgFDUwFxqv8SCXuIf
+  email: false
+
+sudo: false
+
+language: ruby
+
+services:
+ - docker
+
+script:
+ - echo 'Build and check docker image'
+ - docker build -t bagel .
+ - docker images | grep -c bagel
+ - echo 'Verify program(s) from this repo'
+ - docker run -t --rm bagel BAGEL.py -h
+ - docker run -t --rm bagel BAGEL-calc_foldchange.py -h
